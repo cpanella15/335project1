@@ -1,7 +1,5 @@
 import sys
 
-
-
 def groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,duration ):
 
     updatedSchedule1 = updateSchedule(pers1Schedule, pers1DailyAct)
@@ -50,14 +48,23 @@ def sortedAllSchedules (Schedule):
         if item[1] < nextItem[0] and nextItem[0] > trackLatest:
             tempList = [item[1], nextItem[0]]
             avaliableTimes.append(tempList)
-            print(avaliableTimes)
-    print(Schedule)
+
+    return avaliableTimes
 
     #Todo: write a function to  arrange all schedules. New meeting starts AFTER the end of current meeting.
     
 
 def matchedAvailabilities(Schedule, duration):
     availabilities = []
+
+    for item in Schedule:
+        temp = item[0]
+        while (temp + duration <= item[1]):
+            availabilities.append([temp, temp+duration])
+            temp += duration
+
+    return list(map(lambda s: [convertMinutestoHour(s[0]), convertMinutestoHour(s[1])], availabilities))
+
    #Todo: write a function to match all availabilities
     
 
@@ -84,8 +91,9 @@ def main():
     pers1Schedule = [[ '7: 00', '8: 30'], ['12: 00', '13: 00'], ['16: 00', '18: 00']]
     pers1DailyAct = ['9: 00', '19: 00']
 
-    pers2Schedule = [[ '9: 00', '10: 30'], ['12: 20', '14: 30'], ['14: 00', '15: 00'], ['16: 00', '17: 00']]
+    pers2Schedule = [[ '9:00', '10:30'],  ['12:20', '14:30'],  ['14:00', '15:00'], ['16:00', '17:00']]
     pers2DailyAct = ['9: 00', '18: 30']
+
     duration = 30
 
     groupSchedule1= groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,duration )
@@ -94,3 +102,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
