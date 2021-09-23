@@ -12,19 +12,17 @@ def groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,du
 
 def updateSchedule(Schedule, DailyAct):
     updatedSchedule = Schedule[:]  #make a copy of the schedule
-    updatedSchedule =list()
     updatedSchedule.insert(0, ['0:00', DailyAct[0]])  #update unavailable schedules and add early morning hours
     updatedSchedule.append([DailyAct[1], '23:59'])   #update unavailable schedules and add after work hours
-    return updatedSchedule
-    #return list(map(lambda s: [convertToMinutes(s[0]), convertToMinutes(s[1])], updatedSchedule))
+    return list(map(lambda s: [convertToMinutes(s[0]), convertToMinutes(s[1])], updatedSchedule))
 
 
 def mergedSchedules(pers1Schedule, pers2Schedule):
     merged =[]
     i,j =0,0
     while i < len(pers1Schedule) and j< len(pers2Schedule):
-        meeting1, meeting2 =pers1Schedule[i], pers2Schedule[j]
-        if meeting1[0]<= meeting2[0]:
+        meeting1, meeting2 = pers1Schedule[i], pers2Schedule[j]
+        if meeting1[0] <= meeting2[0]:
             merged.append(meeting1)
             i+=1
         else:
@@ -33,18 +31,19 @@ def mergedSchedules(pers1Schedule, pers2Schedule):
     while i< len(pers1Schedule):
         merged.append(meeting1)
         i+=1
-    while i< len(pers2Schedule):
+    while j< len(pers2Schedule):
         merged.append(meeting2)
         j+=1
     return merged
 
 def sortedAllSchedules (Schedule):
     allSchedules = [Schedule[0][:]]
+    print(Schedule)
     #Todo: write a function to  arrange all schedules. New meeting starts AFTER the end of current meeting.
     
 
 def matchedAvailabilities(Schedule, duration):
-    availabilities=[]
+    availabilities = []
    #Todo: write a function to match all availabilities
     
 
@@ -62,12 +61,22 @@ def convertMinutestoHour(minutes):
     return toString +":" + toStringMins
 
 def main():
-    pers1Schedule = input("Enter schedule for person 1:")
-    pers2Schedule = input("Enter schedule for person 2:")
-    pers1DailyAct = input("Enter Daily Availability for pers 1: ")
-    pers2DailyAct = input("Enter Daily Availability for pers 2: ")
-    duration = input("Enter duration of the proposed meeting: ")
+    # pers1Schedule = input("Enter schedule for person 1:")
+    # pers2Schedule = input("Enter schedule for person 2:")
+    # pers1DailyAct = input("Enter Daily Availability for pers 1: ")
+    # pers2DailyAct = input("Enter Daily Availability for pers 2: ")
+    # duration = input("Enter duration of the proposed meeting: ")
+
+    pers1Schedule = [[ '7: 00', '8: 30'], ['12: 00', '13: 00'], ['16: 00', '18: 00']]
+    pers1DailyAct = ['9: 00', '19: 00']
+
+    pers2Schedule = [[ '9: 00', '10: 30'], ['12: 20', '14: 30'], ['14: 00', '15: 00'], ['16: 00', '17: 00']]
+    pers2DailyAct = ['9: 00', '18: 30']
+    duration = 30
+
     groupSchedule1= groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,duration )
+
+    print("yo")
 
 if __name__ == "__main__":
     main()
