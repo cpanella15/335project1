@@ -37,8 +37,17 @@ def mergedSchedules(pers1Schedule, pers2Schedule):
     return merged
 
 def sortedAllSchedules (Schedule):
-    allSchedules = [Schedule[0][:]]
-    print(Schedule)
+
+    avaliableTimes = [[]]
+    i = 0
+    for item in Schedule:
+        nextItem = Schedule[(i + 1) % len(Schedule)]
+        i += 1
+        if item[1] < nextItem[0]:
+            tempList = [item[1], nextItem[0]]
+            avaliableTimes.append(tempList)
+            print(avaliableTimes)
+
     #Todo: write a function to  arrange all schedules. New meeting starts AFTER the end of current meeting.
     
 
