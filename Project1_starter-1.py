@@ -58,7 +58,7 @@ def sortedAllSchedules (Schedule):
         if item[1] < nextItem[0] and nextItem[0] > trackLatest:
             tempList = [item[1], nextItem[0]]
             avaliableTimes.append(tempList)
-            return avaliableTimes
+    return avaliableTimes
 
     #Todo: write a function to  arrange all schedules. New meeting starts AFTER the end of current meeting.
     
