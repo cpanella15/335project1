@@ -6,6 +6,7 @@ def groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,du
     updatedSchedule2 = updateSchedule(pers2Schedule, pers2DailyAct)
     mergedSchedule=mergedSchedules(updatedSchedule1, updatedSchedule2)
     sortedSchedules= sortedAllSchedules(mergedSchedule)
+    print(list(map(lambda s: [convertMinutestoHour(s[0]), convertMinutestoHour(s[1])], mergedSchedule)))
     print ( matchedAvailabilities(sortedSchedules,duration))
 
 def updateSchedule(Schedule, DailyAct):
@@ -20,9 +21,16 @@ def mergedSchedules(pers1Schedule, pers2Schedule):
     i,j =0,0
     while i < len(pers1Schedule) and j< len(pers2Schedule):
         meeting1, meeting2 = pers1Schedule[i], pers2Schedule[j]
-        if meeting1[0] <= meeting2[0]:
+        if meeting1[0] < meeting2[0]:
             merged.append(meeting1)
             i+=1
+        elif meeting1[0] == meeting2[0]:
+            if meeting1[1] <= meeting2[1]:
+                merged.append(meeting1)
+                i += 1
+            else:
+                merged.append(meeting2)
+                j += 1
         else:
             merged.append(meeting2)
             j+=1
@@ -45,10 +53,13 @@ def sortedAllSchedules (Schedule):
         if trackLatest < item[1]:
             trackLatest = item[1]
 
+        if trackLatest < item[1]:
+            trackLatest = item[1]
+
         if item[1] < nextItem[0] and nextItem[0] > trackLatest:
             tempList = [item[1], nextItem[0]]
             avaliableTimes.append(tempList)
-
+    print(list(map(lambda s: [convertMinutestoHour(s[0]), convertMinutestoHour(s[1])], avaliableTimes)))
     return avaliableTimes
 
     #Todo: write a function to  arrange all schedules. New meeting starts AFTER the end of current meeting.
@@ -97,8 +108,6 @@ def main():
     duration = 30
 
     groupSchedule1= groupschedule (pers1Schedule, pers1DailyAct, pers2Schedule, pers2DailyAct,duration )
-
-    print("yo")
 
 if __name__ == "__main__":
     main()
