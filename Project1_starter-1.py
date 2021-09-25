@@ -52,9 +52,6 @@ def sortedAllSchedules (Schedule):
         if trackLatest < item[1]:
             trackLatest = item[1]
 
-        if trackLatest < item[1]:
-            trackLatest = item[1]
-
         if item[1] < nextItem[0] and nextItem[0] > trackLatest:
             tempList = [item[1], nextItem[0]]
             avaliableTimes.append(tempList)
@@ -64,13 +61,11 @@ def sortedAllSchedules (Schedule):
     
 
 def matchedAvailabilities(Schedule, duration):
-    availabilities = []
+    availabilities =[]
 
     for item in Schedule:
-        temp = item[0]
-        while (temp + duration <= item[1]):
-            availabilities.append([temp, temp+duration])
-            temp += duration
+        if item[0] + duration <= item[1]:
+            availabilities.append(item)
 
     return list(map(lambda s: [convertMinutestoHour(s[0]), convertMinutestoHour(s[1])], availabilities))
 
@@ -97,11 +92,11 @@ def main():
     # pers2DailyAct = input("Enter Daily Availability for pers 2: ")
     # duration = input("Enter duration of the proposed meeting: ")
 
-    pers1Schedule = [[ '7: 00', '8: 30'], ['12: 00', '13: 00'], ['16: 00', '18: 00']]
-    pers1DailyAct = ['9: 00', '19: 00']
+    pers1Schedule = [[ '7:00', '8:30'],  ['12:00', '13:00'],  ['16:00', '18:00']]
+    pers1DailyAct =  ['9:00', '19:00']
 
-    pers2Schedule = [[ '9:00', '10:30'],  ['12:20', '14:30'],  ['14:00', '15:00'], ['16:00', '17:00']]
-    pers2DailyAct = ['9: 00', '18: 30']
+    pers2Schedule = [[ '9:00', '10:30'],  ['12:20', '14:30'],  ['14:00', '15:00'], ['16:00', '17:00' ]]
+    pers2DailyAct =  ['9:00', '18: 30']
 
     duration = 30
 
